@@ -1,0 +1,31 @@
+.boton{
+    width: 100%;
+}
+
+.number_serial{
+    width: 137% !important;
+}
+
+button#dropdown-basic {
+    width: 110%;
+}
+
+.titulo{
+    background-color: #0d6efd;
+    color: #fff;
+    text-align: center;
+    padding: 1%;
+}
+
+.toast-header {
+    background-color: rgb(64 207 66 / 85%) !important;
+    color: #fff !important;
+}
+
+.me-auto {
+    text-align: center !important;
+    margin-left: 37%;
+    margin-right: 0 !important;
+    font-size: 30px !important;
+}
+
