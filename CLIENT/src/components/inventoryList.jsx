@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card, Row, Col, Button, Pagination } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { getAllInventorys } from "../api/service.api";
+import { getAllInventorys, deliveryInventory} from "../api/service.api";
 
 export function InventoryList(props) {
   
@@ -38,6 +38,21 @@ export function InventoryList(props) {
   // Calculate total pages
   const totalPages = Math.ceil(inventorys.length / inventorysPerPage);
 
+  
+  const handleEntregar = async (inventoryId) => {
+    try {
+      await deliveryInventory(inventoryId, { is_delivered: true });
+      setInventory(inventorys.map(inventory => {
+        if (inventory.id === inventoryId) {
+          return { ...inventory, is_delivered: true };
+        }
+        return inventory;
+      }));
+    } catch (error) {
+      console.error('Error al entregar inventario:', error);
+    }
+  };
+
   return (
     <div>
         <Card className="mb-3">
@@ -54,9 +69,13 @@ export function InventoryList(props) {
                                 </Card.Header>
                                 <Card.Body>
                                     <label className="mb-3">Número de serie: {inventory.serial_number}</label>
-                                    <Button className="boton" variant="primary" type="submit" >
-                                        Guardar y enviar
+                                    {inventory.is_delivered === true ? (
+                                    <strong className="mb-1 row" style={{ backgroundColor: 'green', color: 'white', padding: '5px', borderRadius: '5px', textAlign: "center" }}>Entregado</strong>
+                                    ) : (
+                                    <Button className="boton" variant="primary" type="submit" onClick={() => handleEntregar(inventory.id)}>
+                                        Entregar
                                     </Button>
+                                    )}
                                 </Card.Body>
                             </Card>
                         </Col>

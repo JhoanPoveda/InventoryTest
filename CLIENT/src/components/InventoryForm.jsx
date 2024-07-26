@@ -1,4 +1,5 @@
 import { Card, Form, Button, Dropdown } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useState } from "react";
 import { createInventory} from '../api/service.api';
@@ -33,9 +34,9 @@ export function InvetoryForm(props) {
         product_type: selectedProductType.id,
         serial_number: serialNumber,
         date_registerd: date_registerd
-  };
+    };
 
-  createInventory(inventoryData)
+    createInventory(inventoryData)
       .then((response) => {
           console.log("Inventario registrado correctamente:", response.data); 
           document.getElementById("user").value = '';
@@ -52,8 +53,8 @@ export function InvetoryForm(props) {
           console.error("Error al registrar el inventario:", error); 
       });
 
-};
-const handleInputChange = (event) => {
+  };
+  const handleInputChange = (event) => {
     const inputValue = event.target.value;
     const inputId = event.target.id;
     
@@ -83,6 +84,7 @@ const handleInputChange = (event) => {
     
     setFormValid(isValid); // Actualizar el estado de validación del formulario
     };
+    console.log(productTypes)
 
   return (
     <div>
@@ -99,12 +101,12 @@ const handleInputChange = (event) => {
           <div className="row justify-content-start">
             <div className="col-4">
             <Form.Group className="mb-3">
-                <Dropdown >
-                <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                <Dropdown>
+                <Dropdown.Toggle className='dropdown' variant="secondary" id="dropdown-basic">
                     {selectedProductType ? selectedProductType.description : 'Productos'}
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
-                    {productTypes.map((productType) => (
+                <Dropdown.Menu >
+                  {productTypes.filter(productType => productType.state === 'activo').map((productType) => (
                     <Dropdown.Item
                         key={productType.id}
                         onClick={() => handleSelect(productType)}
@@ -144,6 +146,7 @@ const handleInputChange = (event) => {
           </div>
         </div>
       )}
+      <Link to="/products">Registrar tipo de producto nuevo</Link>
     </div>
   );
 }

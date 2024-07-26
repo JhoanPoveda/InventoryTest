@@ -6,10 +6,6 @@
     width: 137% !important;
 }
 
-button#dropdown-basic {
-    width: 110%;
-}
-
 .titulo{
     background-color: #0d6efd;
     color: #fff;
@@ -29,3 +25,6 @@ button#dropdown-basic {
     font-size: 30px !important;
 }
 
+.dropdown{
+    width: 105% !important;
+}

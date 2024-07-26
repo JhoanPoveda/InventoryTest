@@ -24,3 +24,6 @@ export const getAllProductsType = async () =>{
     return ProductTypeApi.get('/');
 }
 
+export const createProductsType = async (data) =>{
+    return ProductTypeApi.post('/', data);
+}
